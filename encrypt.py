@@ -10,9 +10,12 @@ import hashlib
 with open(sys.argv[4],'r') as file:
 	plain=file.read()
 
+with open('alpha_vantage_key.txt','r') as file:
+	k=file.read
+
 #print plain
 
-ts = TimeSeries(key='KO7DO2WL5QRGHRM1')
+ts = TimeSeries(key=k)
 data,meta_data=ts.get_daily(symbol=sys.argv[2], outputsize='compact')
 
 seed = float(data[(datetime.date.today()+datetime.timedelta(int(sys.argv[3]))).isoformat()]['4. close'])
