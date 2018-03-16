@@ -40,6 +40,6 @@ for i in range(0,len(plain)):
 	let=(let+letter_offset)%95
 	out=out+chr(int(let)+32)
 	letter_offset=(letter_offset+int(seed_hash[int(hash_offset)],16))%95
-	hash_offset=hash_offset+1
+	hash_offset=(hash_offset+1)%128
 
 print out
