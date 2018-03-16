@@ -4,7 +4,6 @@
 
 import sys
 from alpha_vantage.timeseries import TimeSeries
-import json
 import datetime
 import hashlib
 
@@ -19,3 +18,13 @@ data,meta_data=ts.get_daily(symbol=sys.argv[2], outputsize='compact')
 seed = float(data[(datetime.date.today()+datetime.timedelta(int(sys.argv[3]))).isoformat()]['4. close'])
 
 print seed
+
+seed_hash = hashlib.sha512(str(seed)).hexdigest()
+
+inital_offset = seed*100%100%26
+
+inital_hash = seed//1%128
+
+print inital_offset
+print inital_hash
+print seed_hash
