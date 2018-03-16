@@ -21,10 +21,22 @@ print seed
 
 seed_hash = hashlib.sha512(str(seed)).hexdigest()
 
-inital_offset = seed*100%100%26
+letter_offset = seed*100%1000%95
 
-inital_hash = seed//1%128
+hash_offset = seed//1%128
 
-print inital_offset
-print inital_hash
+print letter_offset
+print hash_offset
 print seed_hash
+print len(plain)
+
+out=''
+
+for i in range(0,len(plain)):
+	let=ord(plain[i])-32
+	let=(let+letter_offset)%95
+	out=out+chr(int(let)+32)
+	letter_offset=(letter_offset+int(seed_hash[int(hash_offset)],16))%95
+	hash_offset=hash_offset+1
+
+print out
