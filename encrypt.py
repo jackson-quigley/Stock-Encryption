@@ -18,7 +18,14 @@ with open('alpha_vantage_key.txt','r') as file:
 ts = TimeSeries(key=k)
 data,meta_data=ts.get_daily(symbol=sys.argv[2], outputsize='compact')
 
-seed = float(data[(datetime.date.today()+datetime.timedelta(int(sys.argv[3]))).isoformat()]['4. close'])
+if int(datetime.datetime.today().weekday()) < 5:
+        lastclose = datetime.date.today()
+elif datetime.datetime.today().weekday() == 5:
+        lastclose = datetime.date.today() - datetime.timedelta(1)
+elif datetime.datetime.today().weekday() == 6:
+        lastclose = datetime.date.today() - datetime.timedelta(2)
+
+seed = float(data[(lastclose+datetime.timedelta(int(sys.argv[3]))).isoformat()]['4. close'])
 
 #print seed
 
